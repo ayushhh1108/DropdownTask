@@ -16,11 +16,13 @@ const DropDown = () => {
   };
 
   const handleOptionClick = (optionId) => {
-    if (selectedOptions.includes(optionId)) {
-      setSelectedOptions(selectedOptions.filter((id) => id !== optionId));
-    } else {
-      setSelectedOptions([...selectedOptions, optionId]);
-    }
+    setSelectedOptions((prevSelectedOptions) => {
+      if (prevSelectedOptions.includes(optionId)) {
+        return prevSelectedOptions.filter((id) => id !== optionId);
+      } else {
+        return [...prevSelectedOptions, optionId];
+      }
+    });
   };
 
   const handleSelectAll = () => {
@@ -31,6 +33,7 @@ const DropDown = () => {
       setSelectedOptions(allOptionIds);
     }
   };
+
   return (
     <div className="dropdown">
       <div className="multiselect-dropdown">
@@ -42,7 +45,6 @@ const DropDown = () => {
           {isOpen ? (
             <div className="option" onClick={handleSelectAll}>
               <span className="checkmark">Select All Pages</span>
-
               <input
                 type="checkbox"
                 className="checkbox"
@@ -82,4 +84,5 @@ const DropDown = () => {
     </div>
   );
 };
+
 export default DropDown;
